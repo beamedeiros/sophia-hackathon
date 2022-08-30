@@ -1,15 +1,40 @@
 <template>
   <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <ClickableCard v-for="attendance of list" :course="attendance.course" :discipline="attendance.discipline"
+    :id="attendance.id" :status="attendance.status" :key="attendance.id"/>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import ClickableCard from './components/Card.vue'
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    ClickableCard,
+  },
+  data: function () {
+    return {
+      list: [
+        {
+          course: '1˚ Ano',
+          discipline: 'Matemática',
+          id: 1,
+          status: 'pending'
+        },
+        {
+          course: '2˚ Ano',
+          discipline: 'Português',
+          id: 2,
+          status: 'done'
+        },
+        {
+          course: '5˚ Ano',
+          discipline: 'História',
+          id: 4,
+          status: 'late'
+        },
+      ]
+    }
   }
 }
 </script>
@@ -22,5 +47,16 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+}
+
+.row {
+  display: flex;
+  flex-direction: row;
+
 }
 </style>
