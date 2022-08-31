@@ -20,7 +20,7 @@
       </div>
     </div>
     <ClickableCard 
-      v-for="attendance of filteredLists" 
+      v-for="attendance of list" 
       :course="attendance.course" 
       :discipline="attendance.discipline"
       :id="attendance.id" 
@@ -34,6 +34,7 @@
 <script>
 import ClickableCard from '../components/Card.vue'
 import dayjs from 'dayjs'
+import SophiaAPI from '../helpers/sophiaAPI'
 
 export default {
   name: 'SelectAttendanceList',
@@ -42,31 +43,12 @@ export default {
   },
   data: function () {
     return {
-      list: [
-        {
-          course: '1˚ Ano',
-          discipline: 'Matemática',
-          id: 1,
-          status: 'pending',
-          date: '2022-08-30'
-        },
-        {
-          course: '2˚ Ano',
-          discipline: 'Português',
-          id: 2,
-          status: 'done',
-          date: '2022-08-31'
-        },
-        {
-          course: '5˚ Ano',
-          discipline: 'História',
-          id: 4,
-          status: 'late',
-          date: '2022-08-31'
-        },
-      ],
-      date: dayjs().format('YYYY-MM-DD')
+      list: [],
+      date: dayjs().format('YYYY-MM-DD'),
     }
+  },
+  created: async function () {
+    await this.updateList(this.date)
   },
   methods: {
     addDay: function () {
@@ -77,11 +59,18 @@ export default {
     },
     openList: function (id) {
       this.$router.push(`/attendanceList/${id}`)
+    },
+    updateList: async function(newDate) {
+      const sophiaAPI = await SophiaAPI.init(6000, 'antonio', 'antonio')
+      const date = dayjs(newDate).format('MM/DD/YYYY')
+      this.list = await sophiaAPI.getAttendanceLists(1, 290, 30, date)
+
+      console.log(this.list)
     }
   },
-  computed: {
-    filteredLists: function () {
-      return this.list.filter(list => list.date == this.date)
+  watch: {
+    date: function (newDate) {
+      this.updateList(newDate)
     }
   }
 }

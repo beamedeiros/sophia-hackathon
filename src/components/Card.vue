@@ -1,16 +1,14 @@
 <template>
   <div class="card row" :class="status">
-    <!-- lado esquerdo -->
     <div class="row">
       <div class="column">
         <div class="row">{{course}}</div>
-        <div class="row">{{discipline}}</div>
+        <div class="row" style="margin-bottom: 1em;">{{discipline}}</div>
         <div class="row">
           <el-tag :type="tagType">{{prettyStatus}}</el-tag>
         </div>
       </div>
     </div>
-    <!-- lado direito -->
     <div class="row" style="align-items: center">
       <el-icon>
         <ArrowRight/>
@@ -37,9 +35,8 @@
             return 'Atrasado';
           case 'done':
             return 'Finalizado';
-        
           default:
-            return 'info'
+            return 'Aguardando lançamento'
         }
       },
       tagType: function () {
@@ -80,6 +77,10 @@
 
 .late {
   border-left: 5px solid #E84521;
+}
+
+.not-started {
+  border-left: 5px solid #C8D0D8;
 }
 
 
