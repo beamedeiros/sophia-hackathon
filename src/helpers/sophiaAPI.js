@@ -1,7 +1,7 @@
 import axios from 'axios'
 import resolveStatus from './resolveStatus'
 
-const baseURL = 'http://portal.sophia.com.br/sophiawebapi'
+const baseURL = 'https://portal.sophia.com.br/sophiawebapi'
 
 export default class SophiaAPI {
   sophia = null
