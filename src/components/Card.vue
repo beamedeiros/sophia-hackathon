@@ -1,10 +1,10 @@
 <template>
-  <div class="card row">
+  <div class="card row" :class="status">
     <!-- lado esquerdo -->
     <div class="row">
       <div class="column">
-        <div style="justify-content:  ">{{course}}</div>
-        <div class="">{{discipline}}</div>
+        <div class="row">{{course}}</div>
+        <div class="row">{{discipline}}</div>
         <div class="row">
           <el-tag :type="tagType">{{prettyStatus}}</el-tag>
         </div>
@@ -65,11 +65,22 @@
   justify-content: space-between;
   border-radius: 10px;
   box-shadow: 0px 1px 8px rgba(0, 0, 0, 0.08);
-  border-left: 5px solid #30B565;
+  background-color: #ffffff;
   margin: 0.5em 0 0.5em 0;
   padding: 16px
 }
 
+.pending {
+  border-left: 5px solid #F5B845;
+}
+
+.done {
+  border-left: 5px solid #30B565;
+}
+
+.late {
+  border-left: 5px solid #E84521;
+}
 
 
 </style>
