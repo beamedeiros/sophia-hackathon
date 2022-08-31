@@ -66,8 +66,8 @@
   border-radius: 10px;
   box-shadow: 0px 1px 8px rgba(0, 0, 0, 0.08);
   background-color: #ffffff;
-  margin: 0.5em 0 0.5em 0;
-  padding: 16px
+  margin: 0.5em 1em 0.5em 1em;
+  padding: 16px;
 }
 
 .pending {

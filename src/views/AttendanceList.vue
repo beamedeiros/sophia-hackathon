@@ -1,6 +1,6 @@
 <template>
-  <div class="d-flex column l-flex">
-    <router-view></router-view>
+  <div class="column" style="height: 100%;">
+    PLACEHOLDER
   </div>
 </template>
 
@@ -8,7 +8,9 @@
 import dayjs from 'dayjs'
 
 export default {
-  name: 'App',
+  name: 'AttendanceList',
+  components: {
+  },
   data: function () {
     return {
       list: [
@@ -36,8 +38,6 @@ export default {
   },
   methods: {
     addDay: function () {
-      window.alert('batata')
-      this.$router.push('/attendanceList')
       this.date = dayjs(this.date).add(1, 'day').format('YYYY-MM-DD')
     },
     subtractDay: function () {
