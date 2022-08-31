@@ -30,9 +30,9 @@
       prettyStatus: function () {
         switch(this.status) {
           case 'pending':
-            return 'em lançamento';
+            return 'Em lançamento';
           case 'late':
-            return 'Atrasado';
+            return 'Aguardando lançamento';
           case 'done':
             return 'Finalizado';
           default:
