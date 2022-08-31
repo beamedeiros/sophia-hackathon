@@ -11,27 +11,8 @@ export default {
   name: 'App',
   data: function () {
     return {
-      list: [
-        {
-          course: '1˚ Ano',
-          discipline: 'Matemática',
-          id: 1,
-          status: 'pending'
-        },
-        {
-          course: '2˚ Ano',
-          discipline: 'Português',
-          id: 2,
-          status: 'done'
-        },
-        {
-          course: '5˚ Ano',
-          discipline: 'História',
-          id: 4,
-          status: 'late'
-        },
-      ],
-      date: '2022-08-30'
+      list: [],
+      date: dayjs().format('YYYY-MM-DD')
     }
   },
   methods: {

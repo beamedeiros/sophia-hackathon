@@ -17,7 +17,7 @@
 <script>
 
 import CardList from '../components/List.vue'
-// import SophiaAPI from '@/helpers/sophiaAPI'
+import SophiaAPI from '@/helpers/sophiaAPI'
 
 export default {
   name: 'StudentList',
@@ -49,11 +49,12 @@ export default {
       date: '2022-08-30'
     }
   },
-  // created: async function () {
-  //   const sophiaAPI = await SophiaAPI.init(1, 'antonio', 'antonio')
+  created: async function () {
+    const sophiaAPI = await SophiaAPI.init(6000, 'antonio', 'antonio')
 
-  //   this.list = await sophiaAPI.getStudentsFromAttendanceListCode(this.$route.params.id)
-  // }
+    this.list = await sophiaAPI.getStudentsFromAttendanceListCode(this.$route.params.id)
+    console.log(this.list)
+  }
 }
 
 </script>

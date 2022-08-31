@@ -11,12 +11,12 @@ export default class SophiaAPI {
     this.sophia = sophia
   }
   static async createToken(tenant, usuario, senha) {
-    const {data: token} = await axios.post(`${baseURL}/${tenant}/api/v1/Autenticacao`, {
+    const { data: token } = await axios.post(`${baseURL}/${tenant}/api/v1/Autenticacao`, {
       usuario,
       senha
     })
 
-    return  token
+    return token
   }
 
   static async init(tenant, usuario, senha) {
@@ -30,8 +30,8 @@ export default class SophiaAPI {
     return new SophiaAPI(sophia)
   }
 
-  async getAttendanceLists(unidade, professor, periodo, data){
-    const {data: result} = await this.sophia.get('/listaChamada', {
+  async getAttendanceLists(unidade, professor, periodo, data) {
+    const { data: result } = await this.sophia.get('/listaChamada', {
       params: {
         codigounidade: unidade,
         codigoprofessor: professor,
@@ -51,24 +51,28 @@ export default class SophiaAPI {
     })
   }
 
-  async getStudentsFromAttendanceListCode (attendanceListCode) {
-    const {data: result} = await this.sophia.get('/ListaChamadaAluno', {
-      params: {codigolistachamada: attendanceListCode}
-    })
+  async getStudentsFromAttendanceListCode(attendanceListCode) {
+    try {
+      const { data: result } = await this.sophia.get('/ListaChamadaAluno', {
+        params: { codigolistachamada: attendanceListCode }
+      })
 
-    return result.map(student => {
-      return {
-        name: student.nome,
-        id: student.codigo,
-        present: !student.falta,
-        picture: '',
-      }
+      return result.map(student => {
+        return {
+          name: student.nome,
+          id: student.codigo,
+          present: !student.falta,
+          picture: '',
+        }
 
-    })
+      })
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   //todo: implement put
-  async updateAttendanceList () {
+  async updateAttendanceList() {
     return 'TODO'
   }
 
