@@ -24,7 +24,7 @@
 import ClickableCard from './components/Card.vue'
 
 export default {
-  name: 'Teste',
+  name: 'App',
   components: {
     ClickableCard,
   },
