@@ -16,7 +16,7 @@ export default function resolveStatus(listaChamada, data) {
       } else {
         return 'pending'
       }
-    case "Finalizado":
+    case "Finalizada":
       return 'done'
       
   }

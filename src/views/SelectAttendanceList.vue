@@ -24,7 +24,8 @@
       :course="attendance.course" 
       :discipline="attendance.discipline"
       :id="attendance.id" 
-      :status="attendance.status" 
+      :classNum="attendance.classNum"
+      :status="attendance.status"
       :key="attendance.id" 
       @click="openList(attendance.id)"
     />

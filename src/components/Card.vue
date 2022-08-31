@@ -2,8 +2,8 @@
   <div class="card row" :class="status">
     <div class="row">
       <div class="column">
-        <div class="row">{{course}}</div>
-        <div class="row" style="margin-bottom: 1em;">{{discipline}}</div>
+        <div class="row" style="font-weight: bold;">{{course}}</div>
+        <div class="row" style="margin-bottom: 1em; font-size: 0.85em;">{{discipline}} - Aula {{classNum}}</div>
         <div class="row">
           <el-tag :type="tagType">{{prettyStatus}}</el-tag>
         </div>
@@ -24,7 +24,8 @@
       course: String,
       discipline: String,
       id: String,
-      status: String
+      status: String,
+      classNum: String
     },
     computed: {
       prettyStatus: function () {

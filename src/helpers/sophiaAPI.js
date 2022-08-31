@@ -44,11 +44,34 @@ export default class SophiaAPI {
       return {
         id: listaChamada.codigo,
         course: listaChamada.nomeTurma,
-        discipline: listaChamada.disciplina,
+        discipline: listaChamada.nomeDisciplina,
+        classNum: listaChamada.numeroPrimeiraAula,
         status: resolveStatus(listaChamada, data)
       }
     })
   }
 
+  async getStudentsFromAttendanceListCode (attendanceListCode) {
+    const {data: result} = await this.sophia.get('/ListaChamadaAluno', {
+      params: {codigolistachamada: attendanceListCode}
+    })
+
+    return result.map(student => {
+      return {
+        name: student.nome,
+        id: student.codigo,
+        present: !student.falta,
+        picture: '',
+      }
+
+    })
+  }
+
+  //todo: implement put
+  async updateAttendanceList () {
+    return 'TODO'
+  }
+
+  // lookup attendancelist 12030 classes 14673 and 14674
 
 }

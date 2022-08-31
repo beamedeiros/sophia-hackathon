@@ -1,15 +1,28 @@
 <template>
   <div class="column" style="height: 100%;">
-    PLACEHOLDER
+    <div class="row header">
+      <div>
+        <el-icon>
+          <ArrowLeft @click="PrevClass"/>
+        </el-icon>
+        <el-icon>
+          <ArrowRight @click="NextClass"/>
+        </el-icon>
+      </div>
+    </div>
+    <CardList v-for="student of list" :name="student.name" :img="student.picture" :present="student.present" :key="student.id"/>
   </div>
 </template>
 
 <script>
-import dayjs from 'dayjs'
+
+import CardList from '../components/List.vue'
+// import SophiaAPI from '@/helpers/sophiaAPI'
 
 export default {
-  name: 'AttendanceList',
+  name: 'StudentList',
   components: {
+    CardList,
   },
   data: function () {
     return {
@@ -36,18 +49,16 @@ export default {
       date: '2022-08-30'
     }
   },
-  methods: {
-    addDay: function () {
-      this.date = dayjs(this.date).add(1, 'day').format('YYYY-MM-DD')
-    },
-    subtractDay: function () {
-      this.date = dayjs(this.date).subtract(1, 'day').format('YYYY-MM-DD')
-    }
-  }
+  // created: async function () {
+  //   const sophiaAPI = await SophiaAPI.init(1, 'antonio', 'antonio')
+
+  //   this.list = await sophiaAPI.getStudentsFromAttendanceListCode(this.$route.params.id)
+  // }
 }
+
 </script>
 
-<style lang="scss">
+<style>
 
 body {
   margin: 0px
@@ -89,6 +100,7 @@ body {
   justify-content: space-between;
   padding: 0px 16px 0px 16px;
   box-shadow: 0px 1px 8px rgba(0, 0, 0, 0.1);
+  margin-bottom: 2rem;
 }
 
 </style>
