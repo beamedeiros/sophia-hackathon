@@ -1,5 +1,5 @@
 <template>
-  <div class="d-flex column l-flex">
+  <div class="column">
     <router-view></router-view>
   </div>
 </template>
@@ -44,13 +44,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  display: flex;
-  flex-direction: column;
-  flex: 1 1 auto;
   background-color: var(--background-grey);
-  min-height: 100vh;
-
-
 }
 
 .column {
@@ -61,15 +55,6 @@ body {
 .row {
   display: flex;
   flex-direction: row;
-}
-
-.header {
-  background-color: #fff;
-  height: 5em;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0px 16px 0px 16px;
-  box-shadow: 0px 1px 8px rgba(0, 0, 0, 0.1);
 }
 
 </style>

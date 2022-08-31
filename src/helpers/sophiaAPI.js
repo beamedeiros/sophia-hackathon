@@ -46,7 +46,8 @@ export default class SophiaAPI {
         course: listaChamada.nomeTurma,
         discipline: listaChamada.nomeDisciplina,
         classNum: listaChamada.numeroPrimeiraAula,
-        status: resolveStatus(listaChamada, data)
+        status: resolveStatus(listaChamada, data),
+        type: listaChamada.porData ? 'check' : 'text'
       }
     })
   }

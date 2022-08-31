@@ -1,5 +1,5 @@
 <template>
-  <div class="column" style="height: 100%;">
+  <div class="column">
     <div class="row header">
       <el-date-picker
       class="el-input__wrapper"
@@ -19,7 +19,8 @@
         </el-button>
       </div>
     </div>
-    <ClickableCard 
+    <div class="card-container column">
+      <ClickableCard 
       v-for="attendance of list" 
       :course="attendance.course" 
       :discipline="attendance.discipline"
@@ -27,8 +28,9 @@
       :classNum="attendance.classNum"
       :status="attendance.status"
       :key="attendance.id" 
-      @click="openList(attendance.id)"
+      @click="openList(attendance.id, attendance.type)"
     />
+    </div>
   </div>
 </template>
 
@@ -58,7 +60,9 @@ export default {
     subtractDay: function () {
       this.date = dayjs(this.date).subtract(1, 'day').format('YYYY-MM-DD')
     },
-    openList: function (id) {
+    openList: function (id, type) {
+      console.log(type)
+      //TODO: Figure out how to use types
       this.$router.push(`/attendanceList/${id}`)
     },
     updateList: async function(newDate) {
@@ -77,31 +81,7 @@ export default {
 }
 </script>
 
-<style lang="scss">
-
-body {
-  margin: 0px
-}
-
-:root {
-  --background-grey: #F4F6F8;
-}
-
-#app {
-  font-family: Nunito, Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  display: flex;
-  flex-direction: column;
-  flex: 1 1 auto;
-  background-color: var(--background-grey);
-  min-height: 100vh;
-
-
-}
-
+<style>
 .column {
   display: flex;
   flex-direction: column;
@@ -119,6 +99,11 @@ body {
   justify-content: space-between;
   padding: 0px 16px 0px 16px;
   box-shadow: 0px 1px 8px rgba(0, 0, 0, 0.1);
+}
+
+.card-container {
+  flex: 1 1 auto;
+  min-height: 100%;
 }
 
 </style>
