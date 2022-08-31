@@ -1,14 +1,45 @@
 <template>
-  <div class="d-flex column l-flex">
-    <router-view></router-view>
+  <div class="column" style="height: 100%;">
+    <div class="row header">
+      <el-date-picker
+      class="el-input__wrapper"
+      v-model="date"  
+      type="date"
+      />
+      <div>
+        <el-button @click="subtractDay">
+          <el-icon>
+            <ArrowLeft/>
+          </el-icon>
+        </el-button>
+        <el-button @click="addDay">
+          <el-icon>
+            <ArrowRight/>
+          </el-icon>
+        </el-button>
+      </div>
+    </div>
+    <ClickableCard 
+      v-for="attendance of filteredLists" 
+      :course="attendance.course" 
+      :discipline="attendance.discipline"
+      :id="attendance.id" 
+      :status="attendance.status" 
+      :key="attendance.id" 
+      @click="openList(attendance.id)"
+    />
   </div>
 </template>
 
 <script>
+import ClickableCard from '../components/Card.vue'
 import dayjs from 'dayjs'
 
 export default {
-  name: 'App',
+  name: 'SelectAttendanceList',
+  components: {
+    ClickableCard,
+  },
   data: function () {
     return {
       list: [
@@ -16,38 +47,47 @@ export default {
           course: '1˚ Ano',
           discipline: 'Matemática',
           id: 1,
-          status: 'pending'
+          status: 'pending',
+          date: '2022-08-30'
         },
         {
           course: '2˚ Ano',
           discipline: 'Português',
           id: 2,
-          status: 'done'
+          status: 'done',
+          date: '2022-08-31'
         },
         {
           course: '5˚ Ano',
           discipline: 'História',
           id: 4,
-          status: 'late'
+          status: 'late',
+          date: '2022-08-31'
         },
       ],
-      date: '2022-08-30'
+      date: dayjs().format('YYYY-MM-DD')
     }
   },
   methods: {
     addDay: function () {
-      window.alert('batata')
-      this.$router.push('/attendanceList')
       this.date = dayjs(this.date).add(1, 'day').format('YYYY-MM-DD')
     },
     subtractDay: function () {
       this.date = dayjs(this.date).subtract(1, 'day').format('YYYY-MM-DD')
+    },
+    openList: function (id) {
+      this.$router.push(`/attendanceList/${id}`)
+    }
+  },
+  computed: {
+    filteredLists: function () {
+      return this.list.filter(list => list.date == this.date)
     }
   }
 }
 </script>
 
-<style>
+<style lang="scss">
 
 body {
   margin: 0px
