@@ -1,4 +1,5 @@
 import axios from 'axios'
+import _ from 'lodash'
 import resolveStatus from './resolveStatus'
 
 const baseURL = 'https://portal.sophia.com.br/sophiawebapi'
@@ -49,36 +50,43 @@ export default class SophiaAPI {
         discipline: listaChamada.nomeDisciplina,
         description: listaChamada.descricao,
         status: resolveStatus(listaChamada, data),
-        type: listaChamada.porData ? 'check' : 'text'
+        type: listaChamada.tipoLista == 'Aula'  ? 'check' : 'text'
       }
-
       return parsedLists
     })
   }
 
   async getStudentsFromAttendanceListCode(attendanceListCode) {
-    try {
-      const { data: result } = await this.sophia.get('/ListaChamadaAluno', {
-        params: { codigolistachamada: attendanceListCode }
-      })
+    const { data: result } = await this.sophia.get('/ListaChamadaAluno', {
+      params: { codigolistachamada: attendanceListCode }
+    })
 
-      return result.map(student => {
-        return {
-          name: student.nome,
-          id: student.codigo,
-          present: !student.falta,
-          picture: '',
-        }
+    const parsedResult =  result.map(student => {
+      return {
+        name: student.nome,
+        id: student.codigo,
+        picture: student.foto_img,
+        enrollment: student.codigoMatriculaAluno
+      }
+    })
 
-      })
-    } catch (error) {
-      console.log(error)
-    }
+    return _.uniqBy(parsedResult, 'name')
   }
 
   //todo: implement put
-  async updateAttendanceList() {
-    return 'TODO'
+  async updateAttendanceList(payload) {
+    const {data: result} = await this.sophia.put('/ListaChamada', payload)
+
+    return result
+  }
+
+  async saveAttendanceList(attendanceListCode, professorCode) {
+    const {data: result} = await this.sophia.put('/ListaChamada/processar', {
+      codigolistachamada: attendanceListCode,
+      codigoprofessor: professorCode 
+    })
+
+    return result
   }
 
   // lookup attendancelist 12030 classes 14673 and 14674

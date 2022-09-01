@@ -67,16 +67,15 @@ export default {
       this.$store.commit('setCourse', attendance.course)
       this.$store.commit('setDiscipline', attendance.discipline)
       this.$store.commit('setDescription', attendance.description)
+      this.$store.commit('setListType', attendance.type)
     },
     updateList: async function(newDate) {
       const sophiaAPI = await SophiaAPI.init(6000, 'antonio', 'antonio')
       const date = dayjs(newDate)
       
       
-
+      // this.list = await sophiaAPI.getAttendanceLists(2, 318, 30, date.format('MM/DD/YYYY'))
       this.list = await sophiaAPI.getAttendanceLists(1, 290, 30, date.format('MM/DD/YYYY'))
-
-      console.log(this.list)
     }
   },
   watch: {
@@ -91,13 +90,13 @@ export default {
 .container {
   flex: 1 1 auto;
   width: 100vw;
-  max-height: 100vh;
+  /* max-height: 100vh; */
 }
 
 .header {
   background-color: #fff;
   min-height: 5em;
-  flex: 1 1 auto;
+  flex: 0 1 auto;
   align-items: center;
   justify-content: space-between;
   padding: 0px 16px 0px 16px;

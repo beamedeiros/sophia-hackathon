@@ -20,6 +20,9 @@ const store = createStore({
     },
     description (state) {
       return state.description
+    },
+    listType (state) {
+      return state.listType
     }
   },
   mutations: {
@@ -34,6 +37,9 @@ const store = createStore({
     },
     setDescription(state, description) {
       state.description = description
+    },
+    setListType(state, type) {
+      state.listType = type
     }
   }
 })
