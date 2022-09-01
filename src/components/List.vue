@@ -52,16 +52,19 @@
         display: flex;
         flex-direction: row;
         align-items: center;
-        padding: 0px;
+        padding: 1rem;
         background-color: #fff;
     }
     .img {
         height: 50px;
         width: 50px;
         border-radius: 50%;
-        margin-right: 1rem;
     }
     .name {
+        margin: 1rem;
+        display:flex;
+        flex-direction: row;
+        text-align: start;
         
     }
     .toggle {
