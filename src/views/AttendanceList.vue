@@ -1,17 +1,17 @@
 <template>
   <div class="column" style="height: 100%;">
     <div class="row header">
-      <div>
-        <!-- <el-button  @click="PrevClass"> -->
+      <div class= "class row">
             <el-icon>
                 <ArrowLeft/>
             </el-icon>
-        <!-- </el-buton>
-        <el-button  @click="NextClass"> -->
+            <!-- <div>
+                <div>Batata</div>
+                <div>Aula, Disciplina </div>
+            </div> -->
             <el-icon>
                 <ArrowRight/>
             </el-icon>
-        <!-- </el-buton> -->
       </div>
     </div>
     <CardList v-for="student of list" :name="student.name" :img="student.picture" :present="student.present" :key="student.id"/>
@@ -30,26 +30,7 @@ export default {
   },
   data: function () {
     return {
-      list: [
-        {
-          course: '1˚ Ano',
-          discipline: 'Matemática',
-          id: 1,
-          status: 'pending'
-        },
-        {
-          course: '2˚ Ano',
-          discipline: 'Português',
-          id: 2,
-          status: 'done'
-        },
-        {
-          course: '5˚ Ano',
-          discipline: 'História',
-          id: 4,
-          status: 'late'
-        },
-      ],
+      list: [],
       date: '2022-08-30'
     }
   },
@@ -58,7 +39,8 @@ export default {
 
     this.list = await sophiaAPI.getStudentsFromAttendanceListCode(this.$route.params.id)
     console.log(this.list)
-  }
+  },
+  
 }
 
 </script>
@@ -102,6 +84,11 @@ body {
   justify-content: space-between;
   padding: 0px 16px 0px 16px;
   box-shadow: 0px 1px 8px rgba(0, 0, 0, 0.1);
+}
+
+.class {
+    display: flex;
+    align-items: center;
 }
 
 </style>
