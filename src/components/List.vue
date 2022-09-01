@@ -17,7 +17,6 @@
                 active-color="#00B8AD"
                 inactive-color="#E86161"
                 inactive-value=false
-                
             >
             </el-switch>
         </div>
@@ -25,19 +24,19 @@
 </template>
 
 <script>
-    export default {
-        name: 'CardList',
-        props: {
-            id: String,
-            picture: String,
-            name: String
-        },
-        data: function() {
-            return {
-                isActive: true,
-            }
-        },
-    }
+export default {
+    name: 'CardList',
+    props: {
+        id: String,
+        picture: String,
+        name: String
+    },
+    data: function() {
+        return {
+            isActive: true,
+        }
+    },
+}
 </script>
 
 <style scoped>

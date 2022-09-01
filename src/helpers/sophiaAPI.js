@@ -39,16 +39,20 @@ export default class SophiaAPI {
         data
       }
     })
+    
 
     return result.map(listaChamada => {
-      return {
+      
+      const parsedLists =  {
         id: listaChamada.codigo,
         course: listaChamada.nomeTurma,
         discipline: listaChamada.nomeDisciplina,
-        classNum: listaChamada.numeroPrimeiraAula,
+        description: listaChamada.descricao,
         status: resolveStatus(listaChamada, data),
         type: listaChamada.porData ? 'check' : 'text'
       }
+
+      return parsedLists
     })
   }
 

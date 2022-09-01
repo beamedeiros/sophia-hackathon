@@ -25,10 +25,10 @@
       :course="attendance.course" 
       :discipline="attendance.discipline"
       :id="attendance.id" 
-      :classNum="attendance.classNum"
+      :description="attendance.description"
       :status="attendance.status"
       :key="attendance.id" 
-      @click="openList(attendance.id, attendance.type)"
+      @click="openList(attendance)"
     />
     </div>
   </div>
@@ -60,15 +60,21 @@ export default {
     subtractDay: function () {
       this.date = dayjs(this.date).subtract(1, 'day').format('YYYY-MM-DD')
     },
-    openList: function (id, type) {
-      console.log(type)
+    openList: function (attendance) {
       //TODO: Figure out how to use types
-      this.$router.push(`/attendanceList/${id}`)
+      this.$router.push(`/attendanceList/${attendance.id}`)
+      this.$store.commit('setDate', dayjs(this.date).format('YYYY-MM-DD'))
+      this.$store.commit('setCourse', attendance.course)
+      this.$store.commit('setDiscipline', attendance.discipline)
+      this.$store.commit('setDescription', attendance.description)
     },
     updateList: async function(newDate) {
       const sophiaAPI = await SophiaAPI.init(6000, 'antonio', 'antonio')
-      const date = dayjs(newDate).format('MM/DD/YYYY')
-      this.list = await sophiaAPI.getAttendanceLists(1, 290, 30, date)
+      const date = dayjs(newDate)
+      
+      
+
+      this.list = await sophiaAPI.getAttendanceLists(1, 290, 30, date.format('MM/DD/YYYY'))
 
       console.log(this.list)
     }
@@ -81,7 +87,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .container {
   flex: 1 1 auto;
   width: 100vw;

@@ -3,7 +3,7 @@
     <div class="row">
       <div class="column">
         <div class="row" style="font-weight: bold;">{{course}}</div>
-        <div class="row" style="margin-bottom: 1em; font-size: 0.85em;">{{discipline}} - Aula {{classNum}}</div>
+        <div class="row" style="margin-bottom: 1em; font-size: 0.85em;">{{discipline}} - {{description}}</div>
         <div class="row">
           <el-tag :type="tagType">{{prettyStatus}}</el-tag>
         </div>
@@ -25,7 +25,7 @@
       discipline: String,
       id: String,
       status: String,
-      classNum: String
+      description: String
     },
     computed: {
       prettyStatus: function () {

@@ -38,6 +38,8 @@ body, html {
 
 :root {
   --background-grey: #F4F6F8;
+  --cyan: #00B8AD
+  --red: #E86161
 }
 
 #app {
