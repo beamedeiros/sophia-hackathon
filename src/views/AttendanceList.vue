@@ -2,12 +2,16 @@
   <div class="column" style="height: 100%;">
     <div class="row header">
       <div>
-        <el-icon>
-          <ArrowLeft @click="PrevClass"/>
-        </el-icon>
-        <el-icon>
-          <ArrowRight @click="NextClass"/>
-        </el-icon>
+        <!-- <el-button  @click="PrevClass"> -->
+            <el-icon>
+                <ArrowLeft/>
+            </el-icon>
+        <!-- </el-buton>
+        <el-button  @click="NextClass"> -->
+            <el-icon>
+                <ArrowRight/>
+            </el-icon>
+        <!-- </el-buton> -->
       </div>
     </div>
     <CardList v-for="student of list" :name="student.name" :img="student.picture" :present="student.present" :key="student.id"/>
@@ -79,9 +83,6 @@ body {
   flex-direction: column;
   flex: 1 1 auto;
   background-color: var(--background-grey);
-  min-height: 100vh;
-
-
 }
 
 .column {

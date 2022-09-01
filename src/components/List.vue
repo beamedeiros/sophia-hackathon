@@ -14,9 +14,11 @@
         <div class="toggle">
            <el-switch
                 v-model="isActive"
-                active-color="#13ce66"
-                inactive-color="#ff4949"
-                inactive-value="0">
+                active-color="#00B8AD"
+                inactive-color="#E86161"
+                inactive-value=false
+                
+            >
             </el-switch>
         </div>
     </div>
