@@ -17,7 +17,6 @@ export default {
   },
   methods: {
     addDay: function () {
-      window.alert('batata')
       this.$router.push('/attendanceList')
       this.date = dayjs(this.date).add(1, 'day').format('YYYY-MM-DD')
     },
@@ -30,8 +29,11 @@ export default {
 
 <style>
 
-body {
-  margin: 0px
+body, html {
+  margin: 0px;
+  min-height: 100vh;
+  min-width: 100vw;
+  display: flex
 }
 
 :root {
@@ -45,6 +47,8 @@ body {
   text-align: center;
   color: #2c3e50;
   background-color: var(--background-grey);
+  flex: 1 1 auto;
+
 }
 
 .column {

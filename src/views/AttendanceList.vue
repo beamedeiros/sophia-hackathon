@@ -102,7 +102,6 @@ body {
   justify-content: space-between;
   padding: 0px 16px 0px 16px;
   box-shadow: 0px 1px 8px rgba(0, 0, 0, 0.1);
-  margin-bottom: 2rem;
 }
 
 </style>

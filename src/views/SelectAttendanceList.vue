@@ -1,5 +1,5 @@
 <template>
-  <div class="column">
+  <div class="container column">
     <div class="row header">
       <el-date-picker
       class="el-input__wrapper"
@@ -82,19 +82,16 @@ export default {
 </script>
 
 <style>
-.column {
-  display: flex;
-  flex-direction: column;
-}
-
-.row {
-  display: flex;
-  flex-direction: row;
+.container {
+  flex: 1 1 auto;
+  width: 100vw;
+  max-height: 100vh;
 }
 
 .header {
   background-color: #fff;
-  height: 5em;
+  min-height: 5em;
+  flex: 1 1 auto;
   align-items: center;
   justify-content: space-between;
   padding: 0px 16px 0px 16px;
@@ -103,7 +100,8 @@ export default {
 
 .card-container {
   flex: 1 1 auto;
-  min-height: 100%;
+  /* min-height: 100%; */
+  overflow-y: scroll;
 }
 
 </style>
