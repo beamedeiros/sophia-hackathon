@@ -1,6 +1,7 @@
 <template>
   <div class="container column">
     <div class="row header">
+      <el-input v-model="professorCode" style="width: 2em;"></el-input>
       <el-date-picker
       class="el-input__wrapper"
       v-model="date"  
@@ -19,7 +20,13 @@
         </el-button>
       </div>
     </div>
-    <div class="card-container column">
+    <div v-if="list.length == 0" class="no-list">
+        <div>
+          <h1 style="font-weight: bold; font-size: large;" >Sem chamadas hoje :)</h1>
+        </div>
+        <img style="height: 15em;" src="../assets/no-list.svg"/>
+    </div>
+    <div class="card-container column" v-else>
       <ClickableCard 
       v-for="attendance of list" 
       :course="attendance.course" 
@@ -48,6 +55,7 @@ export default {
     return {
       list: [],
       date: dayjs().format('YYYY-MM-DD'),
+      professorCode: 1
     }
   },
   created: async function () {
@@ -73,14 +81,21 @@ export default {
       const sophiaAPI = await SophiaAPI.init(6000, 'antonio', 'antonio')
       const date = dayjs(newDate)
       
+      if (this.professorCode == 1) {
+        this.list = await sophiaAPI.getAttendanceLists(2, 318, 30, date.format('MM/DD/YYYY'))
+      } else {
+        this.list = await sophiaAPI.getAttendanceLists(1, 290, 30, date.format('MM/DD/YYYY'))
+      }
       
-      // this.list = await sophiaAPI.getAttendanceLists(2, 318, 30, date.format('MM/DD/YYYY'))
-      this.list = await sophiaAPI.getAttendanceLists(1, 290, 30, date.format('MM/DD/YYYY'))
+      
     }
   },
   watch: {
     date: function (newDate) {
       this.updateList(newDate)
+    },
+    professorCode: function () {
+      this.updateList(this.date)
     }
   }
 }
@@ -107,6 +122,14 @@ export default {
   flex: 1 1 auto;
   /* min-height: 100%; */
   overflow-y: scroll;
+}
+
+.no-list {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 </style>

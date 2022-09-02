@@ -3,9 +3,10 @@
         <!-- lado esquerdo -->
         <div class="row">
             <div class="row">
-                <div>
-                    <img class="img" :src="`data:img/jpg;base64, ${picture}`"/>
-                </div>
+                <el-icon :size="size" :color="color">
+                    <User />
+                </el-icon>
+                <!-- <img class="img" :src="`data:img/jpg;base64, ${picture}`"/> -->
                 <div class="name row">{{name}}</div>
             </div>
         </div>
@@ -41,7 +42,8 @@ export default {
         name: String,
         numberOfClasses: Number,
         enrollment: String,
-        classCodes: [Number]
+        classCodes: [Number],
+        absentByDefault: Boolean
     },
     data: function() {
         return {
@@ -56,21 +58,24 @@ export default {
         classes: function () {
             return this.listType  === 'check' ? this.numberOfClasses : this.periodNumberOfClasses
         },
-
-        // totalAbscence: function () {
-
-        // }
     },
     created: function () {
         this.model = this.classCodes.map(classCode => {
             return {
                 classCode,
-                value: 0
-            }    
+                value: this.absentByDefault ? 0 : 1
+            } 
         })
     },
-    mounted: function () {
-        this.$watch(this.model)
+    watch: {
+        absentByDefault: function () {
+            this.model = this.classCodes.map(classCode => {
+            return {
+                classCode,
+                value: this.absentByDefault ? 0 : 1
+            }
+        })
+        }
     }
 }
 </script>
