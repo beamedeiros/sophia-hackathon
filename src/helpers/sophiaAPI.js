@@ -1,5 +1,4 @@
 import axios from 'axios'
-import _ from 'lodash'
 import resolveStatus from './resolveStatus'
 
 const baseURL = 'https://portal.sophia.com.br/sophiawebapi'
@@ -61,16 +60,16 @@ export default class SophiaAPI {
       params: { codigolistachamada: attendanceListCode }
     })
 
-    const parsedResult =  result.map(student => {
+    return result.map(student => {
       return {
         name: student.nome,
         id: student.codigo,
         picture: student.foto_img,
-        enrollment: student.codigoMatriculaAluno
+        enrollment: student.codigoMatricula,
+        attendanceListStudentCode: student.codigoListaChamadaAula
       }
     })
 
-    return _.uniqBy(parsedResult, 'name')
   }
 
   //todo: implement put

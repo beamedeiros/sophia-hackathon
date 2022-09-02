@@ -1,6 +1,6 @@
 <template>
   <div class="column container" style="height: 100%;">
-    <div class="row header">
+    <div class="row header"  style="justify-content: space-between">
       <div style="padding: .75rem">
         <el-button @click="prevPage">
           <el-icon><Back /></el-icon>
@@ -12,7 +12,26 @@
       </div>
     </div>
     <div class="card-container column">
-      <CardList v-for="student of list" :name="student.name" :picture="student.picture" :present="student.present" :numberOfClasses="numberOfClasses" :key="student.id"/>
+      <div>
+        <div class="header-list">
+          <div>Nome</div>
+          <div>
+            <div>Aulas</div>
+            <div v-if="listType == 'text'">
+              <el-input style="max-width: 4em" v-model="absenceNumber"></el-input>
+            </div>    
+          </div>
+        </div>
+      </div>
+      <CardList 
+        v-for="student of uniqList"
+        :name="student.name"
+        :enrollment="student.enrollment"
+        :classCodes="student.classCodes"
+        :picture="student.picture"
+        :numberOfClasses="numberOfClasses" 
+        :key="student.id"
+      />
     </div>
     <div style="padding: 16px">
       <el-button color="#00B8AD" style="height: 4em; width: 90vw; font-size: large; font-weight: bold;">Finalizar</el-button>
@@ -24,6 +43,7 @@
 
 import CardList from '../components/List.vue'
 import SophiaAPI from '@/helpers/sophiaAPI'
+import _ from 'lodash'
 
 export default {
   name: 'StudentList',
@@ -38,12 +58,21 @@ export default {
       date: this.$store.getters.date,
       discipline: this.$store.getters.discipline,
       description: this.$store.getters.description,
+      absenceNumber: 0,
     }
   },
   created: async function () {
     const sophiaAPI = await SophiaAPI.init(6000, 'antonio', 'antonio')
     this.list = await sophiaAPI.getStudentsFromAttendanceListCode(this.$route.params.id)
-    this.uniqList = _.uniqBy(this.list, 'name')
+    const groupedList = _.groupBy(this.list, 'enrollment')
+    for(const studentCode in _.groupBy(this.list, 'enrollment')) {
+      const classes = groupedList[studentCode]
+
+      this.uniqList.push({
+        ...classes[0],
+        classCodes: classes.map(classDoc => classDoc.attendanceListStudentCode)
+      })
+    }
   },
   methods: {
     prevPage: function () {
@@ -79,12 +108,22 @@ export default {
     display: flex;
     flex-direction: column;
     justify-content: center;
+    flex: 1 1 auto;
 }
 
 .card-container {
   flex: 1 1 auto;
-  min-height: 100%;
   overflow-y: scroll;
 }
 
+.header-list{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 2rem;
+  background-color: #fff;
+  flex: 0 1 auto;
+  margin-top: 2px;
+  justify-content: space-between;
+}
 </style>

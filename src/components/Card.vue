@@ -59,7 +59,7 @@
 
 <style scoped>
 .card {
-  flex: 1 1 auto;
+  flex: 0 1 auto;
   justify-content: space-between;
   border-radius: 10px;
   box-shadow: 0px 1px 8px rgba(0, 0, 0, 0.08);

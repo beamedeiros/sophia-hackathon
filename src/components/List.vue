@@ -1,10 +1,10 @@
 <template>
-    <div class="card row" :class="status">
+    <div class="card row">
         <!-- lado esquerdo -->
         <div class="row">
             <div class="row">
                 <div>
-                    <img class="img" :src="`data:img/png;base64, ${picture}`"/>
+                    <img class="img" :src="`data:img/jpg;base64, ${picture}`"/>
                 </div>
                 <div class="name row">{{name}}</div>
             </div>
@@ -12,14 +12,19 @@
 
         <!-- lado direito -->
         <div class="toggle">
-           <el-switch
-                v-model="isActive"
-                v-if="listType == 'check'"
-                active-color="#00B8AD"
-                inactive-color="#E86161"
-                inactive-value=false
-            >
-            </el-switch>
+            <div v-if="listType == 'check'">
+                <el-switch
+                     v-for="(attendance, index) of model"
+                     :key="index"
+                     v-model="model[index].value"
+                     active-color="#00B8AD"
+                     :active-value="0"
+                     :inactive-value="1"
+                     inactive-color="#E86161"
+                     style="margin-left: 0.5em;"
+                 >
+                 </el-switch>
+            </div>
             <el-input style="max-width: 4em" v-model="absenceNumber" v-else>
 
             </el-input>
@@ -31,17 +36,41 @@
 export default {
     name: 'CardList',
     props: {
-        id: String,
+        id: Number,
         picture: String,
         name: String,
-        numberOfClasses: Number
+        numberOfClasses: Number,
+        enrollment: String,
+        classCodes: [Number]
     },
     data: function() {
         return {
             isActive: true,
             absenceNumber: 0,
-            listType: this.$store.getters.listType
+            listType: this.$store.getters.listType,
+            periodNumberOfClasses: 0,
+            model: []
         }
+    },
+    computed: {
+        classes: function () {
+            return this.listType  === 'check' ? this.numberOfClasses : this.periodNumberOfClasses
+        },
+
+        // totalAbscence: function () {
+
+        // }
+    },
+    created: function () {
+        this.model = this.classCodes.map(classCode => {
+            return {
+                classCode,
+                value: 0
+            }    
+        })
+    },
+    mounted: function () {
+        this.$watch(this.model)
     }
 }
 </script>
